@@ -4,6 +4,7 @@ import com.jobtracker.dto.AuthRequestDTO;
 import com.jobtracker.dto.AuthResponseDTO;
 import com.jobtracker.dto.RegistrationRequestDTO;
 import com.jobtracker.entity.User;
+import com.jobtracker.exception.AlreadyExistsException;
 import com.jobtracker.repository.UserRepository;
 import com.jobtracker.security.JwtUtils;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class AuthService {
         // Creates a new user and returns a token immediately.
         public AuthResponseDTO register(RegistrationRequestDTO request) {
                 if (userRepository.existsByEmail(request.getEmail())) {
-                        throw new RuntimeException("Email already exists");
+                        throw new AlreadyExistsException("Email already exists");
                 }
 
                 User user = User.builder()

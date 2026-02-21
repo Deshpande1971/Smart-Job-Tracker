@@ -27,6 +27,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company; // Only for ROLE_COMPANY
+
     @Column(nullable = false)
     private String name;
 

@@ -40,9 +40,11 @@ public class SecurityConfig {
                                 "/api/auth/**", // Public Auth Endpoints
                                 "/v3/api-docs/**", // Swagger Docs
                                 "/swagger-ui/**",
-                                "/swagger-ui.html")
+                                "/swagger-ui.html",
+                                "/api/jobs/**", // Public Job Listings
+                                "/api/companies/**") // Public Company Profiles (GET only allowed via filter)
                         .permitAll()
-                        .anyRequest().authenticated()) // Everything else requires a token
+                        .anyRequest().authenticated()) // Mutations are protected by Method Security
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // No server side-session
                 .authenticationProvider(customAuthenticationProvider())
