@@ -1,0 +1,13 @@
+package com.aditya.smartjobappilcation;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SmartJobTrackerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SmartJobTrackerApplication.class, args);
+	}
+
+}
