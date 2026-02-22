@@ -42,7 +42,8 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/api/jobs/**", // Public Job Listings
-                                "/api/companies/**") // Public Company Profiles (GET only allowed via filter)
+                                "/api/companies/**",
+                                "/api/dev/**") // Public Dev/Reset Endpoints
                         .permitAll()
                         .anyRequest().authenticated()) // Mutations are protected by Method Security
                 .sessionManagement(session -> session
