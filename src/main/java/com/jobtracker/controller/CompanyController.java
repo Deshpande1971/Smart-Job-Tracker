@@ -46,4 +46,16 @@ public class CompanyController {
     public ResponseEntity<CompanyResponseDTO> verifyCompany(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(companyService.verifyCompany(id));
     }
+
+    @PatchMapping("/{id}/suspend")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<CompanyResponseDTO> suspendCompany(@PathVariable("id") UUID id) {
+        return ResponseEntity.ok(companyService.suspendCompany(id));
+    }
+
+    @PatchMapping("/{id}/reinstate")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<CompanyResponseDTO> reinstateCompany(@PathVariable("id") UUID id) {
+        return ResponseEntity.ok(companyService.reinstateCompany(id));
+    }
 }

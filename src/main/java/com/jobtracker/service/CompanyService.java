@@ -5,6 +5,7 @@ import com.jobtracker.dto.CompanyResponseDTO;
 import com.jobtracker.entity.Company;
 import com.jobtracker.entity.User;
 import com.jobtracker.entity.UserRole;
+import com.jobtracker.entity.CompanyStatus;
 import com.jobtracker.exception.AlreadyExistsException;
 import com.jobtracker.repository.CompanyRepository;
 import com.jobtracker.repository.UserRepository;
@@ -84,6 +85,22 @@ public class CompanyService {
         Company company = companyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Company not found"));
         company.setVerified(true);
+        return mapToResponse(companyRepository.save(company));
+    }
+
+    @Transactional
+    public CompanyResponseDTO suspendCompany(UUID id) {
+        Company company = companyRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Company not found"));
+        company.setStatus(CompanyStatus.SUSPENDED);
+        return mapToResponse(companyRepository.save(company));
+    }
+
+    @Transactional
+    public CompanyResponseDTO reinstateCompany(UUID id) {
+        Company company = companyRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Company not found"));
+        company.setStatus(CompanyStatus.ACTIVE);
         return mapToResponse(companyRepository.save(company));
     }
 

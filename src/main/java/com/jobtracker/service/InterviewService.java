@@ -94,6 +94,7 @@ public class InterviewService {
         return mapToResponse(interviewRepository.save(interview));
     }
 
+    @Transactional(readOnly = true)
     public List<InterviewResponseDTO> getInterviewsByApplication(UUID applicationId) {
         // Find all interview rounds for a specific application
         return interviewRepository.findByApplicationId(applicationId).stream()

@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,6 +35,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(Customizer.withDefaults()) // Enable CORS integration with WebMvc config
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for REST APIs
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
@@ -41,8 +43,8 @@ public class SecurityConfig {
                                 "/v3/api-docs/**", // Swagger Docs
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                                "/api/jobs/**", // Public Job Listings
-                                "/api/companies/**",
+                                "/api/jobs", "/api/jobs/**", // Public Job Listings
+                                "/api/companies", "/api/companies/**",
                                 "/api/dev/**") // Public Dev/Reset Endpoints
                         .permitAll()
                         .anyRequest().authenticated()) // Mutations are protected by Method Security

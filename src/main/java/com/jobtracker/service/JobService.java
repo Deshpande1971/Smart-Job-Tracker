@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -61,12 +62,14 @@ public class JobService {
         return mapToResponse(jobPostingRepository.save(job));
     }
 
+    @Transactional(readOnly = true)
     public List<JobResponseDTO> getAllPublishedJobs() {
         return jobPostingRepository.findByIsPublishedTrue().stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<JobResponseDTO> getJobsByCompany(UUID companyId) {
         return jobPostingRepository.findByCompanyId(companyId).stream()
                 .map(this::mapToResponse)
@@ -83,7 +86,7 @@ public class JobService {
                 .location(job.getLocation())
                 .employmentType(job.getEmploymentType())
                 .experienceLevel(job.getExperienceLevel())
-                .skills(job.getSkills())
+                .skills(job.getSkills() != null ? new ArrayList<>(job.getSkills()) : new ArrayList<>())
                 .salaryMin(job.getSalaryMin())
                 .salaryMax(job.getSalaryMax())
                 .applicationDeadline(job.getApplicationDeadline())

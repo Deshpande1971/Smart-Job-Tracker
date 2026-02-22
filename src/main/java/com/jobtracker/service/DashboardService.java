@@ -13,6 +13,7 @@ import com.jobtracker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ public class DashboardService {
         private final JobPostingRepository jobPostingRepository;
         private final UserRepository userRepository;
 
+        @Transactional(readOnly = true)
         public SeekerDashboardDTO getSeekerStats() {
                 // 1. Identify current logged-in user
                 String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -51,6 +53,7 @@ public class DashboardService {
                                 .build();
         }
 
+        @Transactional(readOnly = true)
         public CompanyDashboardDTO getCompanyStats() {
                 String email = SecurityContextHolder.getContext().getAuthentication().getName();
                 User currentUser = userRepository.findByEmail(email)
@@ -68,6 +71,7 @@ public class DashboardService {
                                 .collect(Collectors.groupingBy(app -> app.getStatus().name(), Collectors.counting()));
 
                 return CompanyDashboardDTO.builder()
+                                .companyId(currentUser.getCompany().getId())
                                 .totalJobsPosted(jobs.size())
                                 .totalApplicants(applications.size())
                                 .applicantsByStatus(statusBreakdown)

@@ -18,7 +18,7 @@ Before starting your test, ensure you have a clean database.
 
 If you are new to backend testing with Postman, you might be wondering: *"What do I do with the token after I login? What is a Header?"*
 
-*   **What is a Token?** Think of a `Token` like an electronic VIP wristband at a club. When you register, you give the bouncer your details. When you **Login** (give your email/password), the bouncer gives you a VIP wristband (the `Token`). 
+*   **What is a Token?** Think of a `Token` like an electronic VIP wristband at a club. When you register, you give the bouncer your details. When you **Login** (give your email/password), the bouncer gives you a VIP wristband (the `Token`).  
     *   For every room you visit *after* that (like creating a company or posting a job), you don't show your password again; you just flash the wristband!
 *   **What is a Header?** A Header is the invisible envelope that carries information along with your API request. When the manual says `Headers: Authorization: Bearer <BASU_TOKEN>`, here is exactly what you do in **Postman**:
     1.  Go to the **"Headers"** tab under the URL bar.

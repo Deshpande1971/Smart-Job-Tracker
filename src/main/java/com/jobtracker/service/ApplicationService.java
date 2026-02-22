@@ -89,6 +89,7 @@ public class ApplicationService {
                 return mapToResponse(applicationRepository.save(application));
         }
 
+        @Transactional(readOnly = true)
         public List<ApplicationResponseDTO> getMyApplications() {
                 String email = SecurityContextHolder.getContext().getAuthentication().getName();
                 User currentUser = userRepository.findByEmail(email)
@@ -99,6 +100,7 @@ public class ApplicationService {
                                 .collect(Collectors.toList());
         }
 
+        @Transactional(readOnly = true)
         public List<ApplicationResponseDTO> getApplicationsForJob(UUID jobId) {
                 JobPosting job = jobPostingRepository.findById(jobId)
                                 .orElseThrow(() -> new ResourceNotFoundException("Job not found"));
