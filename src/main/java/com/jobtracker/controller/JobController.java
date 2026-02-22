@@ -26,7 +26,7 @@ public class JobController {
     @PostMapping("/companies/{companyId}/jobs")
     @PreAuthorize("hasRole('COMPANY')")
     public ResponseEntity<JobResponseDTO> createJob(
-            @PathVariable UUID companyId,
+            @PathVariable("companyId") UUID companyId,
             @Valid @RequestBody JobRequestDTO request) {
         return ResponseEntity.ok(jobService.createJob(companyId, request));
     }
@@ -39,7 +39,7 @@ public class JobController {
 
     // Get jobs for a specific company.
     @GetMapping("/companies/{companyId}/jobs")
-    public ResponseEntity<List<JobResponseDTO>> getJobsByCompany(@PathVariable UUID companyId) {
+    public ResponseEntity<List<JobResponseDTO>> getJobsByCompany(@PathVariable("companyId") UUID companyId) {
         return ResponseEntity.ok(jobService.getJobsByCompany(companyId));
     }
 }

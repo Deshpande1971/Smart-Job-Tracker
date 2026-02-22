@@ -36,14 +36,14 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CompanyResponseDTO> getCompanyById(@PathVariable UUID id) {
+    public ResponseEntity<CompanyResponseDTO> getCompanyById(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(companyService.getCompanyById(id));
     }
 
     // Only ADMIN can verify a company.
     @PatchMapping("/{id}/verify")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<CompanyResponseDTO> verifyCompany(@PathVariable UUID id) {
+    public ResponseEntity<CompanyResponseDTO> verifyCompany(@PathVariable("id") UUID id) {
         return ResponseEntity.ok(companyService.verifyCompany(id));
     }
 }
